@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Enterprise {
+public class Escape {
 	
 	static class Point {
 		int x;

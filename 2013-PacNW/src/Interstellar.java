@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class InterstellarTrade {
+public class Interstellar {
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
