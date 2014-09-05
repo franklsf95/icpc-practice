@@ -3,7 +3,5 @@
 *.pdf
 *.in
 *.out
-*.in
-*.out
 .project
 

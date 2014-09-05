@@ -1,77 +1,95 @@
-import java.util.Scanner;
-import java.util.ArrayList;
+/**
+ * @author luans
+ * @created Aug 29, 2014
+ */
+import java.util.*;
 
 public class C {
-
-	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
-		int cnt = in.nextInt();
-		in.nextLine(); // consume \n
-		for (int i = 0; i < cnt; i++) {
-			String st = in.nextLine();
-			if (st.length() == 1) {
-				// evolve fails when length == 1
-				System.out.println("DIES");
-				continue;
-			}
-			boolean live = false;
-			int top = 0;
-			ArrayList<String>ss = new ArrayList<String>();
-			ss.add(st);
-			top++;
-			int TLE = 500;
-			String ns = st;
-			boolean dup = false;
-			for (int t = 0; t < TLE; t++) {
-//				System.out.println(ns);
-				ns = evolve(ns);
-				// if all-zero, die and break
-				boolean all_zero = true;
-				for (int j = 0; j < ns.length(); j++) {
-					if (ns.charAt(j) != '0') {
-						all_zero = false;
-						break;
-					}
-				}
-				if (all_zero) {
-					live = false;
-					break;
-				}
-				// otherwise, see if entering loop
-				for (String s : ss) {
-					if (ns.equals(s)) {
-						dup = true;
-						break;
-					}
-				}
-				// survive if entering loop
-				if (dup) {
-					live = true;
-					break;
-				} else {
-					ss.add(ns);
-					top++;
+	
+	static class BitString {
+		int len;
+		boolean bits[];
+		
+		BitString(int length) {
+			len = length;
+			bits = new boolean[length];
+		}
+		
+		BitString(String s) {
+			len = s.length();
+			bits = new boolean[len];
+			for (int i = 0; i < len; i++) {
+				char c = s.charAt(i);
+				if (c == '1') {
+					bits[i] = true;
 				}
 			}
-			System.out.println(live ? "LIVES" : "DIES");
+		}
+		
+		public int hashCode() {
+//			long h = 1;
+//			for (int i = 0; i < len; i++) {
+//				
+//			}
+		}
+		
+		public String toString() {
+			StringBuilder sb = new StringBuilder(len);
+			for (int i = 0; i < len; i++) {
+				sb.append(bits[i] ? '1' : '0');
+			}
+			return sb.toString();
+		}
+		
+		boolean allZero() {
+			boolean allZero = true;
+			for (int i = 0; i < len; i++) {
+				allZero &= !bits[i];
+			}
+			return allZero;
+		}
+		
+		BitString evolve() {
+			BitString c = new BitString(len);
+			// if length <= 1, then result will be 0
+			if (len >= 2) {
+				c.bits[0] = bits[1] ^ false;
+				c.bits[len - 1] = bits[len - 2] ^ false;
+			}
+			for (int i = 1; i <= len - 2; i++) {
+				c.bits[i] = bits[i - 1] ^ bits[i + 1];
+			}
+			return c;
 		}
 	}
-	
-	static String evolve(String st) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(st.charAt(1) == '1' ? '1' : '0');
-		char a, b;
-		for (int i = 1; i < st.length() - 1; i++) {
-			a = st.charAt(i - 1);
-			b = st.charAt(i + 1);
-			if ((a == '0' && b == '1') || (a == '1' && b == '0')) {
-				sb.append('1');
-			} else {
-				sb.append('0');
+
+	static boolean solve(BitString b) {
+		HashSet<BitString> visited = new HashSet<BitString>(10000);
+		visited.add(b);
+		
+		while (!b.allZero()) {
+			b = b.evolve();
+			if (visited.contains(b)) { // enter a loop
+				return false; // thus will never stop
 			}
+			visited.add(b);
 		}
-		sb.append(st.charAt(st.length() - 2) == '1' ? '1' : '0');
-		return sb.toString();
+		return true; // all zero, stop
+	}
+	
+	public static void main(String[] args) {
+//		System.out.println("Debug");
+		
+		Scanner in = new Scanner(System.in);
+		int nCases = in.nextInt();
+		nCases = 50000;
+		in.nextLine(); // the newline character
+		for (int i = 0; i < nCases; i++) {
+			String s = in.nextLine();
+			BitString b = new BitString(s);
+			boolean stop = solve(b);
+			System.out.println(stop ? "DIES" : "LIVES");
+		}
 	}
 
 }
