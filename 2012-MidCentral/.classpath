@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="problems/bounce"/>
+	<classpathentry kind="src" path="problems/digits"/>
+	<classpathentry kind="src" path="problems/juggle"/>
+	<classpathentry kind="src" path="problems/lru"/>
+	<classpathentry kind="src" path="problems/markers"/>
+	<classpathentry kind="src" path="problems/quine"/>
+	<classpathentry kind="src" path="problems/revenge"/>
+	<classpathentry kind="src" path="problems/slice"/>
+	<classpathentry kind="src" path="problems/solDir"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
