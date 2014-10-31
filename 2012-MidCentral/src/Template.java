@@ -7,8 +7,9 @@ public class Template {
 		Scanner in = new Scanner(System.in);
 //		Scanner in = new Scanner(new File("Template.in"));
 		
+		int n;
+		
 		while (true) {
-			// ....
 			
 			if (true) {
 				break;
@@ -17,3 +18,9 @@ public class Template {
 	}
 
 }
+
+// PriorityQueue
+// Dijkstra Single Source Shortest Path
+// Floyd–Warshall All Pairs Shortest Path
+// Prim's Algorithm for Minimal Spanning Tree
+// Kruskal's Algorithm for Minimal Spanning Tree

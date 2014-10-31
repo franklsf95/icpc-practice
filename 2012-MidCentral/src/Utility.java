@@ -15,9 +15,6 @@ public class Utility {
 		System.out.println("------------");
 	}
 	
-	/**
-	 * Prints an 1-D array
-	 */
 	static void print(int[] a) {
 		for (int i = 0; i < a.length; i++) {
 			System.out.print(a[i] + " ");
@@ -25,15 +22,17 @@ public class Utility {
 		System.out.println("------------");
 	}
 	
-//	static void printCol(Collection<T> c) {
-//		for ()
-//	}
+	static void print(ArrayList<Integer> a) {
+		for (int x: a) {
+			System.out.print(x + " ");
+		}
+		System.out.println();
+	}
 	
-	// safe get from array
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	static int get(int[][] a, int i, int j) {
+		if (i < 0 || i >= a.length) return -1;
+		if (j < 0 || j >= a[0].length) return -1;
+		return a[i][j];
 	}
 
 }
